@@ -75,7 +75,6 @@ public class VerleihServiceImplTest
 
         assertSame(_verleihService.getEntleiherFuer(_abbey), _brian);
 
-        _verleihService.verleiheAn(_brian, _zweiMedien, Datum.heute());
         assertTrue(_verleihService.istVerliehen(_abbey));
 
         //Prüft die Nachbedingung
@@ -84,14 +83,28 @@ public class VerleihServiceImplTest
     }
 
     @Test
-    public void testNochEinTestFall2()
+    public void testNimmZurueck()
     {
+        List<Medium> _dreiMedien = new ArrayList<Medium>();
+        _dreiMedien.add(_abbey);
+        _dreiMedien.add(_shape);
+        _dreiMedien.add(_bad);
+
+        _verleihService.verleiheAn(_brian, _dreiMedien, Datum.heute());
+        _verleihService.nimmZurueck(_dreiMedien, Datum.heute());
+        assertTrue(_verleihService.sindAlleNichtVerliehen(_dreiMedien));
 
     }
 
     @Test
-    public void testNochEinTestFall3()
+    public void testMedienImBestand()
     {
+        List<Medium> _alleMedien = new ArrayList<Medium>();
+        _alleMedien.add(_abbey);
+        _alleMedien.add(_shape);
+        _alleMedien.add(_bad);
+
+        _verleihService.medienImBestand(_alleMedien);
 
     }
 

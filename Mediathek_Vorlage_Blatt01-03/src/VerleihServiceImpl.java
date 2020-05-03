@@ -49,88 +49,97 @@ class VerleihServiceImpl extends AbstractObservableService
     }
 
     @Override
-	public void verleiheAn(Kunde kunde, List<Medium> medien, Datum ausleihDatum)
-	{
-        assert kundeImBestand(kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
-        assert sindAlleNichtVerliehen(medien) : "Vorbedingung veletzt: sindAlleNichtVerliehen(medien)";
+    public void verleiheAn(Kunde kunde, List<Medium> medien, Datum ausleihDatum)
+    {
+        assert kundeImBestand(
+                kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
+        assert sindAlleNichtVerliehen(
+                medien) : "Vorbedingung veletzt: sindAlleNichtVerliehen(medien)";
         assert ausleihDatum != null : "Vorbedingung verletzt: ausleihDatum ist null";
-        
-	    for (Medium medium : medien)
-	    {
-	        Verleihkarte karte = new Verleihkarte(kunde, medium, ausleihDatum);
-	       
-	
-	    }
-	
-	    informiereUeberAenderung();
-	}
 
-	@Override
-	public boolean istVerleihenMoeglich(Kunde kunde, List<Medium> medien)
-	{
-	    assert kundeImBestand(kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
-	    assert medienImBestand(medien) : "Vorbedingung veletzt: medienImBestand(medien)";
-	    
-	    return sindAlleNichtVerliehen(medien);
-	}
+        for (Medium medium : medien)
+        {
+            Verleihkarte karte = new Verleihkarte(kunde, medium, ausleihDatum);
+            _verleihkarten.put(karte.getMedium(), karte);
 
-	@Override
-	public Kunde getEntleiherFuer(Medium medium)
-	{
-	    assert istVerliehen(medium) : "Vorbedingung veletzt: istVerliehen(medium)";
-	    
-	    Verleihkarte verleihkarte = _verleihkarten.get(medium);
-	    return verleihkarte.getEntleiher();
-	}
+        }
 
-	@Override
-	public List<Medium> getAusgelieheneMedienFuer(Kunde kunde)
-	{
-	    assert kundeImBestand(kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
-	    
-	    List<Medium> result = new ArrayList<Medium>();
-	    for (Verleihkarte verleihkarte : _verleihkarten.values())
-	    {
-	        if (verleihkarte.getEntleiher()
-	            .equals(kunde))
-	        {
-	            result.add(verleihkarte.getMedium());
-	        }
-	    }
-	    return result;
-	}
+        informiereUeberAenderung();
+    }
 
-	@Override
+    @Override
+    public boolean istVerleihenMoeglich(Kunde kunde, List<Medium> medien)
+    {
+        assert kundeImBestand(
+                kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
+        assert medienImBestand(
+                medien) : "Vorbedingung veletzt: medienImBestand(medien)";
+
+        return sindAlleNichtVerliehen(medien);
+    }
+
+    @Override
+    public Kunde getEntleiherFuer(Medium medium)
+    {
+        assert istVerliehen(
+                medium) : "Vorbedingung veletzt: istVerliehen(medium)";
+
+        Verleihkarte verleihkarte = _verleihkarten.get(medium);
+        return verleihkarte.getEntleiher();
+    }
+
+    @Override
+    public List<Medium> getAusgelieheneMedienFuer(Kunde kunde)
+    {
+        assert kundeImBestand(
+                kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
+
+        List<Medium> result = new ArrayList<Medium>();
+        for (Verleihkarte verleihkarte : _verleihkarten.values())
+        {
+            if (verleihkarte.getEntleiher()
+                .equals(kunde))
+            {
+                result.add(verleihkarte.getMedium());
+            }
+        }
+        return result;
+    }
+
+    @Override
     public List<Verleihkarte> getVerleihkarten()
     {
         return new ArrayList<Verleihkarte>(_verleihkarten.values());
     }
 
     @Override
-	public void nimmZurueck(List<Medium> medien, Datum rueckgabeDatum)
-	{
-        assert sindAlleVerliehen(medien) : "Vorbedingung veletzt: sindAlleVerliehen(medien)";
+    public void nimmZurueck(List<Medium> medien, Datum rueckgabeDatum)
+    {
+        assert sindAlleVerliehen(
+                medien) : "Vorbedingung veletzt: sindAlleVerliehen(medien)";
         assert rueckgabeDatum != null : "Vorbedingung verletzt: rueckgabeDatum ist null";
-        
-	    for (Medium medium : medien)
-	    {
-	        _verleihkarten.remove(medium);
-	    }
-	    informiereUeberAenderung();
-	}
 
-	@Override
+        for (Medium medium : medien)
+        {
+            _verleihkarten.remove(medium);
+        }
+        informiereUeberAenderung();
+    }
+
+    @Override
     public boolean istVerliehen(Medium medium)
     {
-	   assert mediumImBestand(medium) : "Vorbedingung veletzt: mediumImBestand(medium)";
-	   
+        assert mediumImBestand(
+                medium) : "Vorbedingung veletzt: mediumImBestand(medium)";
+
         return _verleihkarten.get(medium) != null;
     }
 
     @Override
     public boolean sindAlleNichtVerliehen(List<Medium> medien)
     {
-        assert medienImBestand(medien) : "Vorbedingung veletzt: medienImBestand(medien)";
+        assert medienImBestand(
+                medien) : "Vorbedingung veletzt: medienImBestand(medien)";
         boolean result = true;
         for (Medium medium : medien)
         {
@@ -145,7 +154,8 @@ class VerleihServiceImpl extends AbstractObservableService
     @Override
     public boolean sindAlleVerliehen(List<Medium> medien)
     {
-        assert medienImBestand(medien) : "Vorbedingung veletzt: medienImBestand(medien)";
+        assert medienImBestand(
+                medien) : "Vorbedingung veletzt: medienImBestand(medien)";
         boolean result = true;
         for (Medium medium : medien)
         {
@@ -189,40 +199,42 @@ class VerleihServiceImpl extends AbstractObservableService
     }
 
     @Override
-	public List<Verleihkarte> getVerleihkartenFuer(Kunde kunde)
-	{
-        assert kundeImBestand(kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
-	    List<Verleihkarte> result = new ArrayList<Verleihkarte>();
-	    for (Verleihkarte verleihkarte : _verleihkarten.values())
-	    {
-	        if (verleihkarte.getEntleiher()
-	            .equals(kunde))
-	        {
-	            result.add(verleihkarte);
-	        }
-	    }
-	    return result;
-	}
+    public List<Verleihkarte> getVerleihkartenFuer(Kunde kunde)
+    {
+        assert kundeImBestand(
+                kunde) : "Vorbedingung veletzt: kundeImBestand(kunde)";
+        List<Verleihkarte> result = new ArrayList<Verleihkarte>();
+        for (Verleihkarte verleihkarte : _verleihkarten.values())
+        {
+            if (verleihkarte.getEntleiher()
+                .equals(kunde))
+            {
+                result.add(verleihkarte);
+            }
+        }
+        return result;
+    }
 
-	@Override
+    @Override
     public Verleihkarte getVerleihkarteFuer(Medium medium)
     {
-	    assert istVerliehen(medium) : "Vorbedingung veletzt: istVerliehen(medium)";
+        assert istVerliehen(
+                medium) : "Vorbedingung veletzt: istVerliehen(medium)";
         return _verleihkarten.get(medium);
     }
 
     /**
-	 * Erzeugt eine neue HashMap aus dem Initialbestand.
-	 */
-	private HashMap<Medium, Verleihkarte> erzeugeVerleihkartenBestand(
-	        List<Verleihkarte> initialBestand)
-	{
-	    HashMap<Medium, Verleihkarte> result = new HashMap<Medium, Verleihkarte>();
-	    for (Verleihkarte verleihkarte : initialBestand)
-	    {
-	        result.put(verleihkarte.getMedium(), verleihkarte);
-	    }
-	    return result;
-	}
+     * Erzeugt eine neue HashMap aus dem Initialbestand.
+     */
+    private HashMap<Medium, Verleihkarte> erzeugeVerleihkartenBestand(
+            List<Verleihkarte> initialBestand)
+    {
+        HashMap<Medium, Verleihkarte> result = new HashMap<Medium, Verleihkarte>();
+        for (Verleihkarte verleihkarte : initialBestand)
+        {
+            result.put(verleihkarte.getMedium(), verleihkarte);
+        }
+        return result;
+    }
 
 }
