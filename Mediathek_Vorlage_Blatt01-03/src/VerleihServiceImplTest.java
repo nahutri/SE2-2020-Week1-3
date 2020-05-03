@@ -66,33 +66,33 @@ public class VerleihServiceImplTest
     @Test
     public void testVerleiheAn()
     {
-       List<Medium>_zweiMedien = new ArrayList<Medium>();
-       _zweiMedien.add(_abbey);
-       _zweiMedien.add(_bad);
-       
-        _verleihService.verleiheAn(_brian,_zweiMedien , Datum.heute());
+        List<Medium> _zweiMedien = new ArrayList<Medium>();
+        _zweiMedien.add(_abbey);
+        _zweiMedien.add(_bad);
+
+        _verleihService.verleiheAn(_brian, _zweiMedien, Datum.heute());
         _verleihService.getEntleiherFuer(_abbey);
-        
-        assertSame(_verleihService.getEntleiherFuer(_abbey),_brian);
+
+        assertSame(_verleihService.getEntleiherFuer(_abbey), _brian);
+
+        _verleihService.verleiheAn(_brian, _zweiMedien, Datum.heute());
+        assertTrue(_verleihService.istVerliehen(_abbey));
+
+        //Prüft die Nachbedingung
+        assertTrue(_verleihService.sindAlleVerliehen(_zweiMedien));
+
     }
 
     @Test
     public void testNochEinTestFall2()
     {
-        List<Medium>_zweiMedien = new ArrayList<Medium>();
-        _zweiMedien.add(_abbey);
-        _zweiMedien.add(_bad);
-        
-         _verleihService.verleiheAn(_brian,_zweiMedien , Datum.heute());
-         assertTrue(_verleihService.istVerliehen(_abbey));
+
     }
 
     @Test
-    public void testeVerleihkarte()
+    public void testNochEinTestFall3()
     {
-        Verleihkarte _neueKarte = new Verleihkarte(_brian, _abbey,
-                Datum.heute());
-        assertSame(_neueKarte.getEntleiher(), _brian);
+
     }
 
     private void setUpKunden()
