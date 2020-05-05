@@ -60,6 +60,7 @@ class VerleihServiceImpl extends AbstractObservableService
         for (Medium medium : medien)
         {
             Verleihkarte karte = new Verleihkarte(kunde, medium, ausleihDatum);
+            _verleihkarten.put(karte.getMedium(), karte);
 
         }
 
