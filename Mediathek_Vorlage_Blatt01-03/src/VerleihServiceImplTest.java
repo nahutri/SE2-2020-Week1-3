@@ -71,7 +71,6 @@ public class VerleihServiceImplTest
         _zweiMedien.add(_bad);
 
         _verleihService.verleiheAn(_brian, _zweiMedien, Datum.heute());
-        _verleihService.getEntleiherFuer(_abbey);
 
         assertSame(_verleihService.getEntleiherFuer(_abbey), _brian);
 
