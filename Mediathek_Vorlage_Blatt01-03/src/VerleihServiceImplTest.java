@@ -103,7 +103,7 @@ public class VerleihServiceImplTest
         _alleMedien.add(_shape);
         _alleMedien.add(_bad);
 
-        _verleihService.medienImBestand(_alleMedien);
+        assertTrue(_verleihService.medienImBestand(_alleMedien));
 
     }
 

@@ -50,6 +50,7 @@ class MedienbestandServiceImpl extends AbstractObservableService
     public void fuegeMediumEin(Medium neuesMedium)
     {
         assert !enthaeltMedium(neuesMedium) : "Vorbedingung verletzt";
+
         _medienbestand.add(neuesMedium);
 
         informiereUeberAenderung();
