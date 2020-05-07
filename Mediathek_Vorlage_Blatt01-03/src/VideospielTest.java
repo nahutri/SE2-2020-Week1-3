@@ -38,6 +38,12 @@ public class VideospielTest
     @Test
     public void testSetter()
     {
+        _videospiel2.setTitel("titel2");
+        assertEquals("titel2", _videospiel2.getTitel());
+        _videospiel1.setKommentar(KOMMENTAR);
+        assertEquals(KOMMENTAR, _videospiel1.getKommentar());
+        _videospiel2.setSystem(SYSTEM);
+        assertEquals(SYSTEM, _videospiel2.getSystem());
 
     }
 
