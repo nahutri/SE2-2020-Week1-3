@@ -35,6 +35,24 @@ class MedienDetailAnzeigerWerkzeug
         JTextArea selectedMedienTextArea = _ui.getMedienAnzeigerTextArea();
         // TODO Aufgabe 3.4.2 Die Mediendetails sollen angezeigt werden
         selectedMedienTextArea.setText("");
+        for (Medium medium : medien)
+        {
+            if (medium instanceof CD)
+            {
+                medium = (CD) medium;
+                selectedMedienTextArea.setText(medium.getTitel());
+            }
+            if (medium instanceof DVD)
+            {
+                medium = (DVD) medium;
+                selectedMedienTextArea.setText(medium.getTitel());
+            }
+            if (medium instanceof Videospiel)
+            {
+                medium = (Videospiel) medium;
+                selectedMedienTextArea.setText(medium.getTitel());
+            }
+        }
     }
 
     /**
