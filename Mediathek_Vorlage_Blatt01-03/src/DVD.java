@@ -101,4 +101,17 @@ class DVD implements Medium
         return _titel;
     }
 
+    @Override
+    /**
+     * @ensure getTitel() == titel
+     * @ensure  #getKommentar() == kommentar
+     * @ensure  #getRegisseur() == regisseur
+     * @ensure #getLaufzeit() == laufzeit
+     */
+    public String getFormatiertenString()
+    {
+        return getTitel() + "\n" + getKommentar() + "\n" + getRegisseur() + "\n"
+                + getLaufzeit();
+    }
+
 }

@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +51,13 @@ public class VideospielTest
     protected Videospiel getMedium()
     {
         return new Videospiel(TITEL, KOMMENTAR, SYSTEM);
+    }
+
+    @Test
+    public void testGetFormatiertenString()
+    {
+        assertNotNull(_videospiel1.getFormatiertenString());
+
     }
 
 }
